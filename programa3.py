@@ -1,39 +1,43 @@
 
-import math
+def guardar_numero(numero_seis_cifras):
+    # Validar que el número tenga exactamente seis cifras
+    if not 100000 <= numero_seis_cifras <= 999999:
+        print("Boleta inválida")
+        return
 
-def guardarNumero (numeroSeisCifras):
-    if (numeroSeisCifras<100000 or numeroSeisCifras>999999):
-        print ("Boleta inválida")
-        quit()
-    if (numeroSeisCifras>=100000 and numeroSeisCifras<1000000):        
-        cienMiles=math.trunc(numeroSeisCifras/100000)
-        diezMiles=math.trunc((numeroSeisCifras-(cienMiles*100000))/10000)
-        miles=math.trunc((numeroSeisCifras-((cienMiles*100000)+(diezMiles*10000)))/1000)
-        cientos=math.trunc((numeroSeisCifras-((cienMiles*100000)+(diezMiles*10000)+(miles*1000)))/100)
-        decenas=math.trunc((numeroSeisCifras-((cienMiles*100000)+(diezMiles*10000)+(miles*1000)+(cientos*100)))/10)
-        unidades=math.trunc((numeroSeisCifras-((cienMiles*100000)+(diezMiles*10000)+(miles*1000)+(cientos*100)+(decenas*10))))
-        horario=(miles+cientos)
-    if ((unidades+cienMiles)>5):
-        print ("tu boleta es válida")
-    if (diezMiles>0 and diezMiles<7):
-        print (", el tipo de entrada es gramilla")        
-    if (diezMiles==0 or (diezMiles>6 and diezMiles<=9)):
-        print (", el tipo de entrada es general")        
-    if (horario==1 or horario==3 or horario==5 or horario==7 or horario==9 or horario==11 or horario==13 or horario==15 or horario==17):
-        print (", debes entrar por la puerta 2 a partir de las 8pm")
-    if (horario==2 or horario==4 or horario==6 or horario== 8 or horario== 10 or horario== 12 or horario== 14 or horario== 16 or horario==18 or horario==0):
-        print (", debes entrar por la puerta 1 a partir de las 7pm")            
-    
+    # Extraer las cifras usando división entera y módulo
+    cien_miles = numero_seis_cifras // 100000
+    diez_miles = (numero_seis_cifras // 10000) % 10
+    miles = (numero_seis_cifras // 1000) % 10
+    cientos = (numero_seis_cifras // 100) % 10
+    decenas = (numero_seis_cifras // 10) % 10
+    unidades = numero_seis_cifras % 10
+
+    horario = miles + cientos
+
+    # Validar la boleta
+    if unidades + cien_miles > 5:
+        print("Tu boleta es válida")
+    else:
+        print("Tu boleta no cumple la condición de validación")
+        return
+
+    # Determinar el tipo de entrada
+    if 1 <= diez_miles <= 6:
+        print("El tipo de entrada es gramilla")
+    else:
+        print("El tipo de entrada es general")
+
+    # Determinar la puerta de entrada
+    if horario % 2 == 1:
+        print("Debes entrar por la puerta 2 a partir de las 8pm")
+    else:
+        print("Debes entrar por la puerta 1 a partir de las 7pm")
 
 
-
-
-
-
-
-#--------------------------------------------
-#main
-
-numeroSeisCifras = int(input("Digite un numero de seis cifras."))
-
-guardarNumero (numeroSeisCifras)
+# Main
+try:
+    numero_seis_cifras = int(input("Digite un número de seis cifras: "))
+    guardar_numero(numero_seis_cifras)
+except ValueError:
+    print("Debes ingresar un número entero válido.")
