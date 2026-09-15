@@ -1,47 +1,36 @@
+def guardar_numero(numero_tres_cifras):
+    if not 100 <= numero_tres_cifras <= 999:
+        print("Número incorrecto")
+        return
 
-import math
+    # Extraer las cifras del número
+    cientos = numero_tres_cifras // 100
+    decenas = (numero_tres_cifras // 10) % 10
+    unidades = numero_tres_cifras % 10
 
-def guardarNumero (numeroTresCifras):
-    if (numeroTresCifras>=100 and numeroTresCifras<1000):
-        cientos=math.trunc(numeroTresCifras/100)
-        decenas=math.trunc((numeroTresCifras-(cientos*100))/10)
-        unidades=(numeroTresCifras-((cientos*100)+(decenas*10)))
-        if (cientos<decenas and decenas<unidades):
-            maxDosDigitos=((unidades*10)+decenas)
-            minDosDigitos=((cientos*10)+decenas)
-        if (cientos<unidades and unidades<decenas):
-            maxDosDigitos=((decenas*10)+unidades)
-            minDosDigitos=((cientos*10)+unidades)
-        if (decenas<cientos and cientos<unidades):
-            maxDosDigitos=((unidades*10)+cientos)
-            minDosDigitos=((decenas*10)+cientos)
-        if (decenas<unidades and unidades<cientos):
-            maxDosDigitos=((cientos*10)+unidades)
-            minDosDigitos=((decenas*10)+unidades)
-        if (unidades<cientos and cientos<decenas):
-            maxDosDigitos=((decenas*10)+cientos)
-            minDosDigitos=((unidades*10)+cientos)
-        if (unidades<decenas and decenas<cientos):
-            maxDosDigitos=((cientos*10)+decenas)
-            minDosDigitos=((unidades*10)+decenas)
-        if (unidades==decenas and decenas==cientos):
-            maxDosDigitos=((unidades*10)+decenas)
-            minDosDigitos=((cientos*10)+decenas)
-        print ("numero correcto, el máximo valor de dos dígitos con esos dígitos es ",
-               maxDosDigitos, " y el mínimo valor de dos dígitos con esos números es ",minDosDigitos)
-    else:
-        print ("numero incorrecto")
-        quit()
+    # Ordenar las cifras de menor a mayor
+    cifras = sorted([cientos, decenas, unidades])
+
+    # Formar el número máximo y mínimo de dos dígitos
+    max_dos_digitos = cifras[2] * 10 + cifras[1]
+    min_dos_digitos = cifras[0] * 10 + cifras[1]
+
+    print(
+        "Número correcto.",
+        "El máximo valor de dos dígitos con esos dígitos es",
+        max_dos_digitos,
+        "y el mínimo valor de dos dígitos es",
+        min_dos_digitos
+    )
 
 
+# Main
+try:
+    numero_tres_cifras = int(
+        input("Digite un número de tres cifras: ")
+    )
 
+    guardar_numero(numero_tres_cifras)
 
-
-
-#--------------------------------------------
-#main
-
-numeroTresCifras = int(input("Digite un numero de tres cifras."))
-
-guardarNumero (numeroTresCifras)
-
+except ValueError:
+    print("Debe ingresar un número entero válido.")
